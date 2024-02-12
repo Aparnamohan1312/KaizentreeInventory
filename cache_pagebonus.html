@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Dashboard</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Item Dashboard</h1>
+        <ul>
+            <li v-for="item in items" :key="item.id">
+                {{ item.name }} - SKU: {{ item.sku }}
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                items: []
+            },
+            mounted() {
+                fetch('/api/items/')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.items = data;
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
